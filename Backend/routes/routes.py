@@ -13,8 +13,6 @@ CORS(app, origins=[
 ])
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-if not os.path.exists(AUDIO_FOLDER):
-    os.makedirs(AUDIO_FOLDER)
 # FRONTEND_DIR = carpeta Frontend al mismo nivel que Backend
 FRONTEND_DIR = os.path.join(BASE_DIR, '..','..' ,'Frontend')  
 
@@ -41,9 +39,10 @@ def message():
     respuesta = hugging_face.send_messages(user_message)
     
     audio_filename = tts.text_to_speech(respuesta)
-    host_url = request.host_url
-    print("Audio generado:", audio_filename)
+    if audio_filename == "error":
+        return jsonify({"error": "No se pudo generar el audio"}), 500
 
+    host_url = request.host_url
     return jsonify({
         "respuesta": respuesta,
         "audio_url": f"{host_url}audio/{audio_filename}"
