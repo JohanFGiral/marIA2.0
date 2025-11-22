@@ -1,20 +1,19 @@
 import os
 import requests
+import uuid
 
-ELEVEN_API_KEY = "sk_3ddf8d54679741a23ed5a259658c1470901f75aa0bd01a79"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+AUDIO_FOLDER = os.path.join(BASE_DIR, "audios")
 VOICE_ID = "SmgKjOvC1aIujLWcMzqq"  
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  
-AUDIO_FOLDER = os.path.join(BASE_DIR, "audios")  
-OUTPUT_FILE = os.path.join(AUDIO_FOLDER, "respuesta.mp3")
+ELEVEN_API_KEY = os.environ.get("ELEVEN_API_KEY")
 
-def text_to_speech(text):
-    
-    folder = os.path.dirname(OUTPUT_FILE)
-    if folder and not os.path.exists(folder):
-        os.makedirs(folder)
-        
-    if os.path.exists(OUTPUT_FILE):
-        os.remove(OUTPUT_FILE)
+def text_to_speech(text: str) -> str:
+    if not os.path.exists(AUDIO_FOLDER):
+        os.makedirs(AUDIO_FOLDER)
+
+    # Nombre único para cada audio
+    filename = f"{uuid.uuid4()}.mp3"
+    output_file = os.path.join(AUDIO_FOLDER, filename)
 
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"
 
@@ -39,7 +38,7 @@ def text_to_speech(text):
         print("Error en ElevenLabs:", response.text)
         return None
 
-    with open(OUTPUT_FILE, "wb") as f:
+    with open(output_file, "wb") as f:
         f.write(response.content)
 
-    return "respuesta.mp3"
+    return filename
