@@ -89,7 +89,7 @@ recognition.onresult = (event) => {
   clearTimeout(timeoutSeguridad);
 
   // 🔥 ENVIAR AL BACKEND
-  fetch("http://127.0.0.1:5000/send", {
+  fetch("https://maria-9ppg.onrender.com/send", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ mensaje: texto })

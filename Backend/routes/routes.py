@@ -23,11 +23,12 @@ def message():
     respuesta = hugging_face.send_messages(user_message)
     
     audio_filename = tts.text_to_speech(respuesta)
+    host_url = request.host_url
     print("Audio generado:", audio_filename)
 
     return jsonify({
         "respuesta": respuesta,
-        "audio_url": f"http://127.0.0.1:5000/audio/{audio_filename}"
+        "audio_url": f"{host_url}audio/{audio_filename}"
     })
 
 @app.route('/audio/<path:filename>')
