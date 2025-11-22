@@ -3,7 +3,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key="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",
+    api_key=os.environ.get("HF_TOKEN_KEY"),
 )
 
 h_messages=[
