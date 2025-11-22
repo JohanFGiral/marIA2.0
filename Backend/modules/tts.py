@@ -8,6 +8,8 @@ VOICE_ID = "SmgKjOvC1aIujLWcMzqq"
 ELEVEN_API_KEY = os.environ.get("ELEVEN_API_KEY")
 
 def text_to_speech(text: str) -> str:
+    if not os.path.exists(AUDIO_FOLDER):
+        os.makedirs(AUDIO_FOLDER)
 
     filename = f"{uuid.uuid4()}.mp3"
     output_file = os.path.join(AUDIO_FOLDER, filename)
