@@ -1,0 +1,43 @@
+# Entornos virtuales
+venv/
+env/
+.marIA/
+**/Scripts/
+**/Lib/
+
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Configuraciones de VSCode
+.vscode/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# Carpeta de audios generados (NO subirlos al repo)
+audios/
+
+# Carpeta de configuración o credenciales
+.env
+*.env
+
+# Node / npm (si usas algo en frontend)
+node_modules/
+
+# Build del frontend
+dist/
+build/
+
+# Live Server settings
+*.cache/
