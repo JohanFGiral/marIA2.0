@@ -11,7 +11,9 @@ CORS(app, origins=[
 ])
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-AUDIO_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "audios")
+AUDIO_FOLDER = os.path.join(BASE_DIR, "audios")
+if not os.path.exists(AUDIO_FOLDER):
+    os.makedirs(AUDIO_FOLDER)
 # FRONTEND_DIR = carpeta Frontend al mismo nivel que Backend
 FRONTEND_DIR = os.path.join(BASE_DIR, '..','..' ,'Frontend')  
 

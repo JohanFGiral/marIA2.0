@@ -1,9 +1,9 @@
 import os
 import requests
 import uuid
+from routes.routes import AUDIO_FOLDER
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUDIO_FOLDER = os.path.join(BASE_DIR, "audios")
 VOICE_ID = "SmgKjOvC1aIujLWcMzqq"  
 ELEVEN_API_KEY = os.environ.get("ELEVEN_API_KEY")
 
@@ -11,7 +11,6 @@ def text_to_speech(text: str) -> str:
     if not os.path.exists(AUDIO_FOLDER):
         os.makedirs(AUDIO_FOLDER)
 
-    # Nombre único para cada audio
     filename = f"{uuid.uuid4()}.mp3"
     output_file = os.path.join(AUDIO_FOLDER, filename)
 
@@ -36,7 +35,7 @@ def text_to_speech(text: str) -> str:
 
     if response.status_code != 200:
         print("Error en ElevenLabs:", response.text)
-        return None
+        return "error"
 
     with open(output_file, "wb") as f:
         f.write(response.content)
