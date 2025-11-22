@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 from modules import hugging_face, tts
 from flask_cors import CORS
+from modules.config import AUDIO_FOLDER
+
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -11,7 +13,6 @@ CORS(app, origins=[
 ])
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-AUDIO_FOLDER = os.path.join(BASE_DIR, "audios")
 if not os.path.exists(AUDIO_FOLDER):
     os.makedirs(AUDIO_FOLDER)
 # FRONTEND_DIR = carpeta Frontend al mismo nivel que Backend

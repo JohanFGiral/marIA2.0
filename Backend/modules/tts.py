@@ -1,7 +1,7 @@
 import os
 import requests
 import uuid
-from routes.routes import AUDIO_FOLDER
+from modules.config import AUDIO_FOLDER
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VOICE_ID = "SmgKjOvC1aIujLWcMzqq"  
