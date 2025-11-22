@@ -8,11 +8,22 @@ CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 AUDIO_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "audios")
+# FRONTEND_DIR = carpeta Frontend al mismo nivel que Backend
+FRONTEND_DIR = os.path.join(BASE_DIR, '..','..' ,'Frontend')  
 
 @app.route('/')
 def inicio():
-    return 'Bienvenido a Flask'
+    html_path = os.path.join(FRONTEND_DIR, 'MarIA.html')
+    if not os.path.exists(html_path):
+        return f"Archivo no encontrado en: {html_path}", 404
+    return send_from_directory(FRONTEND_DIR, 'MarIA.html')
 
+@app.route('/<path:path>')
+def frontend_files(path):
+    file_path = os.path.join(FRONTEND_DIR, path)
+    if not os.path.exists(file_path):
+        return f"Archivo no encontrado: {file_path}", 404
+    return send_from_directory(FRONTEND_DIR, path)
 @app.route('/send', methods=['POST'])
 def message():
     user_message = request.json.get("mensaje")
